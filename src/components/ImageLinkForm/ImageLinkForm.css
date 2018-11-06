@@ -1,7 +1,4 @@
-.center{
-	display: flex;
-	justify-content: center;
-}
+
 .form {
 	background:
     radial-gradient(black 3px, transparent 4px),

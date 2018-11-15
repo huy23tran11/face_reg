@@ -28,18 +28,19 @@ class SignIn extends React.Component
 				password: this.state.signInPassword
 			})
 		})
-		.then(res => res.json())
-		.then(data => {
-			(data ==='sucess')?
-			this.props.onRouteChange('home'):
-			this.props.onRouteChange('signin')
-		})
-	} 
+	     .then(response => response.json())
+	     .then(user => {
+	        if(user.id){
+	          this.props.loadUser(user);
+	          this.props.onRouteChange('home');
+	        }
+	     })
+	}
 
 	render()
 	{
 		const {onRouteChange} = this.props;
-		return (
+		return (		
 			<article className="br3 ba --white-10 mv4 w-100 w-50-m w-25-l mw8 center">
 				<main className="pa4 black-80" style ={{color: '#ffffff'}}>
 				  <div className="measure">

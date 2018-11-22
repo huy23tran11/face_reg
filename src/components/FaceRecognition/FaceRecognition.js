@@ -6,8 +6,8 @@ const FaceRecognition = ({imageUrl, box}) =>{
 		(!imageUrl)? <h1> Waiting... </h1>:
 		<div className ='center ma'>
 			<div className ='absolute mt2'>
-				<img id = 'inputmage' alt ='faces' src = {imageUrl} width ='500px' height ='auto'/>
-				<div className = 'bounding-box' style = {{top: box.topRow, bottom: box.bottomRow, right: box.rightCol, left: box.left}}></div>
+				<img id = 'inputimage' alt ='faces' src = {imageUrl} width ='500px' height ='auto'/>
+				<div className = 'bounding-box' style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol}}></div>
 			</div>
 		</div>
 		)

@@ -8,7 +8,6 @@ const Rank = ({name, entires}) => {
 			</div>
 
 			<div className ='white f1'>
-				{console.log('rank',entires)}
 				{entires}
 			</div>
 		</div>

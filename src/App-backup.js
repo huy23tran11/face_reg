@@ -9,8 +9,7 @@ import Particles from 'react-particles-js';
 import SignIn from './components/SignIn/SignIn.js'
 import Register from './components/Register/Register.js'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition.js'
-// import ImageCard from './components/ImageCard/ImageCard.js'
-import CardList from './components/CardList/CardList.js'
+
       // const app = new Clarifai.App({
       //  apiKey: 'f8150b2572ba4d31923141f490b3cf36'
       // });
@@ -37,8 +36,7 @@ const intialState = {
         name: '',
         email: '',
         entires: 0,
-        joined: '',
-        imageList: []
+        joined: ''
       }
     }
 class App extends Component {
@@ -53,8 +51,7 @@ class App extends Component {
         name: data.name,
         email: data.email,
         entires: data.entires,
-        joined: data.joined,
-        imageList: []
+        joined: data.joined
       }
     })
   }
@@ -90,34 +87,10 @@ class App extends Component {
     else if (route === 'home'){
       this.setState({isSignedIn:true})
     }
-    else if (route === 'profile'){
-      this.setState({isSignedIn:true})
-    }
     this.setState({route:route});
   }
 
-  onImageUpdate = ()=> {
-        fetch('http://localhost:3000/profile',{
-        method: 'post',
-        headers: { 'Content-Type': "application/json"},
-        body: JSON.stringify({
-          email: this.state.user.email
-        })
-      })
-      .then(res=> res.json())
-      // .then(res => console.log(res))
-      .then(image => {
-      this.setState(
-        Object.assign(this.state.user,{imageList:image})
-    )
-      // console.log(this.set.state.user.imageList)
-    })
-      .catch(err => console.log(err))
-  }
-
   onButtonSubmit =() => {
-        this.setState( {imageUrl: this.state.input});
-
     fetch('http://localhost:3000/image',{
         method: 'put',
         headers: { 'Content-Type': "application/json"},
@@ -133,6 +106,7 @@ class App extends Component {
     })
     .catch(count => console.log(count));
 
+    this.setState( {imageUrl: this.state.input});
 
     fetch('http://localhost:3000/imageurl',{
         method: 'post',
@@ -145,6 +119,7 @@ class App extends Component {
       console.log(response.outputs[0].data.regions[0].region_info.bounding_box)
       this.displayFaceBox(this.calculateFaceLocation(response));
     })
+
     .then(response => {
       if(response){
           fetch('http://localhost:3000/image',{
@@ -164,21 +139,8 @@ class App extends Component {
         this.setState( {imageUrl: this.state.input});
       }
     })
-    .catch(err => console.log(err))
 
-    console.log(this.state.input,'hereeeeee')
-    if(this.state.input || this.state.email){
-        fetch('http://localhost:3000/imageUpdate',{
-        method: 'post',
-        headers: { 'Content-Type': "application/json"},
-        body: JSON.stringify({
-          email: this.state.user.email,
-          link: this.state.input
-    })
-    }).then(res => res.json())
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-    }
+    .catch(err => console.log(err))
   }
 
   render() {
@@ -187,8 +149,8 @@ class App extends Component {
         <Particles
           className ='particles'
           params={particles}/>
-        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {this.state.isSignedIn} onImageUpdate = {this.onImageUpdate} />
-          {(this.state.route ==='signin')
+        <Navigation onRouteChange = {this.onRouteChange} isSignedIn = {this.state.isSignedIn} />
+         {(this.state.route ==='signin')
          ?<SignIn loadUser = {this.loadUser} onRouteChange={this.onRouteChange}/>
          :(
             (this.state.route ==='home')
@@ -198,13 +160,7 @@ class App extends Component {
             <ImageLinkForm onInputChange ={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
             <FaceRecognition box = {this.state.box} imageUrl = {this.state.imageUrl}/>
           </div>
-          :(
-              (this.state.route ==='profile')
-              ?<div> 
-                  <h1>Your image</h1>
-                  <CardList imageList = {this.state.user.imageList}/>
-              </div>
-              :<Register loadUser={this.loadUser} onRouteChange = {this.onRouteChange}/>)
+          :<Register loadUser={this.loadUser} onRouteChange = {this.onRouteChange}/>
         )
       }
       </div>

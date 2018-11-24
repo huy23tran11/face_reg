@@ -4,16 +4,11 @@ import Navigation from './components/Navigation/Navigation.js'
 import Logo from './components/Logo/Logo.js'
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm.js'
 import Rank from './components/Rank/Rank.js'
-    // import Clarifai from 'clarifai'
 import Particles from 'react-particles-js';
 import SignIn from './components/SignIn/SignIn.js'
 import Register from './components/Register/Register.js'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition.js'
-// import ImageCard from './components/ImageCard/ImageCard.js'
 import CardList from './components/CardList/CardList.js'
-      // const app = new Clarifai.App({
-      //  apiKey: 'f8150b2572ba4d31923141f490b3cf36'
-      // });
 
 const particles = {
                 particles: {

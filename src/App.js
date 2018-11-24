@@ -167,7 +167,6 @@ class App extends Component {
     })
     .catch(err => console.log(err))
 
-    console.log(this.state.input,'hereeeeee')
     if(this.state.input || this.state.email){
         fetch('https://immense-savannah-23316.herokuapp.com/imageUpdate',{
         method: 'post',
